@@ -25,7 +25,6 @@ public class Archer implements Warrior, Cloneable {
 
     @Override
     public void takeDamage(int damage) {
-        BinaryOperator<Integer> sum = Integer::sum;
         health = sum.apply(health, -damage);
     }
 
