@@ -4,8 +4,6 @@ package com.company;
  * Created by tyuly on 21.11.2016.
  */
 public interface Warrior{
-    Calculator calculator = Integer::sum;
-
     /**
      * method to return damage caused by warrior
      * @return int damage
