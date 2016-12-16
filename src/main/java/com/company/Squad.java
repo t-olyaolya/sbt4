@@ -21,19 +21,12 @@ public class Squad implements Cloneable {
         warriors.forEach((Warrior warrior) -> warrior.setSquatName(name));
     }
 
-    /**
-     *
-     * @param i numberof element warriors
-     * @return warrior
-     */
+
     public Warrior getWarrior(int i) {
         return warriors.get(i);
     }
 
-    /**
-     * method to return random warrior from squad
-     * @return Warrior
-     */
+
     public Warrior getRandomWarrior() {
         Random random = new Random();
         int k;
