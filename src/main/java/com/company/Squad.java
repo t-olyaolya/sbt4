@@ -49,17 +49,14 @@ public class Squad implements Cloneable {
      * @return boolean
      */
     public boolean hasAliveWarriors() {
-        return alivePredicate(warriors, (n)-> n.isAlive());
-
-    }
-
-    public boolean alivePredicate(List<Warrior> list, Predicate<Warrior> predicate) {
-        for(Warrior n: list)  {
-            if(predicate.test(n)) {
+       /* for (Warrior w:warriors) {
+            if (w.isAlive()) {
                 return true;
             }
         }
-        return false;
+        return false; */
+        return warriors.stream().anyMatch(Warrior::isAlive);
+
     }
 
 

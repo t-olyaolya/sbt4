@@ -25,7 +25,7 @@ public class Archer implements Warrior, Cloneable {
 
     @Override
     public void takeDamage(int damage) {
-        health = sum.apply(health, -damage);
+        health = health - damage;
     }
 
     @Override

@@ -46,8 +46,8 @@ public class Ui extends JFrame {
         });
         JTextField nameWarrior1 = new TextF();
         JTextField nameWarrior2 = new TextF();
-        JComboBox comboBox1 = new JComboBox(battle.getClasses());
-        JComboBox comboBox2 = new JComboBox(items);
+        JComboBox comboBox1 = new Combo();
+        JComboBox comboBox2 = new Combo();
         JButton add1 = new AddButton();
         add1.addActionListener(e -> {
             item = (String) comboBox1.getSelectedItem();
@@ -77,7 +77,7 @@ public class Ui extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridy = 0;
         constraints.gridx = 0;
-        panel1.add(new JLabel("Введите имя отряда "),constraints);
+        panel1.add(new SqLabel(),constraints);
         constraints.gridx++;
         panel1.add(nameSquad1,constraints);
         constraints.gridx++;
@@ -91,7 +91,7 @@ public class Ui extends JFrame {
         panel1.add(add1,constraints);
         constraints.gridy++;
         constraints.gridx = 0;
-        panel1.add(new JLabel("Введите имя отряда "),constraints);
+        panel1.add(new SqLabel(),constraints);
         constraints.gridx++;
         panel1.add(nameSquad2,constraints);
         constraints.gridx++;
@@ -125,6 +125,18 @@ public class Ui extends JFrame {
         public AddButton() {
             super("ADD");
             //setBackground(Color.cyan);
+        }
+    }
+
+    private class SqLabel extends JLabel {
+        public SqLabel () {
+            super("Введите имя отряда");
+        }
+    }
+
+    private class Combo extends JComboBox {
+        public Combo () {
+            super (battle.getClasses());
         }
     }
 

@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.function.BinaryOperator;
-
 /**
  * Created by tyuly on 21.11.2016.
  * Viking warrior class
@@ -25,7 +23,7 @@ public class Viking implements Warrior, Cloneable {
 
     @Override
     public void takeDamage(int damage) {
-        health = sum.apply(health, -damage);
+        health = health - damage;
     }
 
     @Override
