@@ -7,7 +7,7 @@ import java.util.function.BinaryOperator;
  * Archer warrior class
  */
 public class Archer implements Warrior, Cloneable {
-    private String name;
+    private String name; //хорошо бы вынести общее поведение в абстрактный класс
     private String squadName;
     private int health;
     private int damage;
@@ -25,7 +25,7 @@ public class Archer implements Warrior, Cloneable {
 
     @Override
     public void takeDamage(int damage) {
-        health = health - damage;
+        health = health - damage; //health -= damage;
     }
 
     @Override

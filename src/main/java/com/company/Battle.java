@@ -15,9 +15,9 @@ public class Battle {
     public static List<String> items = new ArrayList<>();
     public static ArrayList<Warrior> warriors1 = new ArrayList<>();
     public static ArrayList<Warrior> warriors2 = new ArrayList<>();
+//лишняя пустая строка
 
-
-    public void addWarriors(ArrayList<Warrior> warriors, String item, String name) {
+    public void addWarriors(ArrayList<Warrior> warriors, String item, String name) { //список бойцов мы получили с помощью рефлексии. но какой в этом смысл, если создать можно только Viking и Archer?
         Warrior warrior = null;
         if (item.equals("Viking")) {
             warrior = new Viking(name);
