@@ -42,13 +42,13 @@ public class Squad implements Cloneable {
      * @return boolean
      */
     public boolean hasAliveWarriors() {
-       /* for (Warrior w:warriors) {
+       /* for (Warrior w:warriors) { ненужный код нужно удалять, а не комментировать
             if (w.isAlive()) {
                 return true;
             }
         }
         return false; */
-        return warriors.stream().anyMatch(Warrior::isAlive);
+        return warriors.stream().anyMatch(Warrior::isAlive); //;)
 
     }
 
@@ -63,7 +63,7 @@ public class Squad implements Cloneable {
         try {
             Squad clone = (Squad) super.clone();
             clone.warriors = new ArrayList<Warrior>(warriors.size());
-            warriors.forEach((Warrior warrior) -> {
+            warriors.forEach((Warrior warrior) -> { //тут как бы тоже нет никакой пользы в использовании лямбды
                 clone.warriors.add(warrior.clone());
             });
             return clone;

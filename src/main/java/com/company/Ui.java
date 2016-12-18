@@ -11,10 +11,10 @@ import java.util.List;
  * Created by tyuly on 11.12.2016.
  */
 public class Ui extends JFrame {
-    private final int jTextSize = 25;
+    private final int jTextSize = 25; //private static final int TEXT_SIZE
     private String [] items = {"Viking", "Archer"};
     private Battle battle = new Battle();
-    private String squad1Name = "";
+    private String squad1Name = ""; //дать имена по умолчанию
     private String squad2Name = "";
     private String item ="";
     private String nameWarrior = "";
@@ -46,17 +46,17 @@ public class Ui extends JFrame {
         });
         JTextField nameWarrior1 = new TextF();
         JTextField nameWarrior2 = new TextF();
-        JComboBox comboBox1 = new Combo();
+        JComboBox comboBox1 = new Combo(); //неинформативные имена
         JComboBox comboBox2 = new Combo();
         JButton add1 = new AddButton();
         add1.addActionListener(e -> {
             item = (String) comboBox1.getSelectedItem();
             nameWarrior = nameWarrior1.getText();
-            battle.addWarriors(Battle.warriors1, item, nameWarrior);
+            battle.addWarriors(Battle.warriors1, item, nameWarrior); //пользователь не видит, добавился боец или нет
             nameWarrior1.setText("");
         });
         JButton add2 = new AddButton();
-        add2.addActionListener(e -> {
+        add2.addActionListener(e -> { //дублирование
             item = (String) comboBox2.getSelectedItem();
             nameWarrior = nameWarrior2.getText();
             battle.addWarriors(Battle.warriors2, item, nameWarrior);
@@ -123,7 +123,7 @@ public class Ui extends JFrame {
 
     private class AddButton extends JButton {
         public AddButton() {
-            super("ADD");
+            super("ADD"); //разные по смыслу кнопки называются ADD
             //setBackground(Color.cyan);
         }
     }

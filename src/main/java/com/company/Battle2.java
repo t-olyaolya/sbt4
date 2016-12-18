@@ -6,8 +6,8 @@ import java.util.List;
 /**
  * Created by tyuly on 22.11.2016.
  */
-public class Battle2 {
-    private Warrior war1;
+public class Battle2 { //это имя ни о чем не говорит
+    private Warrior war1; //зачем они вынесены в поля?
     private Warrior war2;
     private List<String> out = new ArrayList<>();
 
@@ -17,7 +17,7 @@ public class Battle2 {
             out.add("Start battle: " + dateHelper.getFormattedStartData() + "\n");
             int k = 1;
             if ((squad1.warriors.isEmpty()) || (squad2.warriors.isEmpty())) {
-                throw new NullPointerException();
+                throw new NullPointerException(); //вы создаете исключение, бросаете его, тут же ловите и говорите, что отряды не заполнены. почему бы не сказать сразу?
             }
             while ((squad1.hasAliveWarriors()) || (squad2.hasAliveWarriors())) {
                 war1 = squad1.getRandomWarrior();
@@ -30,7 +30,7 @@ public class Battle2 {
                     if (!war2.isAlive()) {
                         out.add(war2.toString() + " died");
                     }
-                } else {
+                } else { //дублирование
                     war1.takeDamage(war2.attack());
                     out.add("War2 attacks War1");
                     if (!war1.isAlive()) {
@@ -45,7 +45,7 @@ public class Battle2 {
                     break;
                 }
 
-                if (!squad2.hasAliveWarriors()) {
+                if (!squad2.hasAliveWarriors()) { //дублирование
                     out.add("\n" + squad1.toString() + " won");
                     out.add("Final: " + dateHelper.getFormattedFinalData());
                     break;
@@ -57,7 +57,7 @@ public class Battle2 {
             out.add("Заполните отряды");
         }
         finally {
-            return out;
+            return out; //это вам тоже не понадобится
         }
     }
 
