@@ -24,9 +24,11 @@ public interface Warrior{
      */
     boolean isAlive();
 
-
     void setSquatName(String name);
 
-    //@Override
+    void setName(String name);
+
+    String getName();
+
     Warrior clone();
 }

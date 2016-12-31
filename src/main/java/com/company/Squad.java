@@ -15,17 +15,15 @@ public class Squad implements Cloneable {
     List<Warrior> warriors = new ArrayList<>();
     private String name;
 
-    Squad (String name, List<Warrior> warriors) {
+    Squad(String name, List<Warrior> warriors) {
         this.warriors = warriors;
         this.name = name;
         warriors.forEach((Warrior warrior) -> warrior.setSquatName(name));
     }
 
-
     public Warrior getWarrior(int i) {
         return warriors.get(i);
     }
-
 
     public Warrior getRandomWarrior() {
         Random random = new Random();
@@ -39,19 +37,12 @@ public class Squad implements Cloneable {
 
     /**
      * method to check has alive warriors
+     *
      * @return boolean
      */
     public boolean hasAliveWarriors() {
-       /* for (Warrior w:warriors) {
-            if (w.isAlive()) {
-                return true;
-            }
-        }
-        return false; */
         return warriors.stream().anyMatch(Warrior::isAlive);
-
     }
-
 
     @Override
     public String toString() {
@@ -63,14 +54,12 @@ public class Squad implements Cloneable {
         try {
             Squad clone = (Squad) super.clone();
             clone.warriors = new ArrayList<Warrior>(warriors.size());
-            warriors.forEach((Warrior warrior) -> {
-                clone.warriors.add(warrior.clone());
-            });
+            for (Warrior w : warriors) {
+                clone.warriors.add(w.clone());
+            }
             return clone;
-        }
-        catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException e) {
             throw new UnsupportedOperationException(e);
         }
     }
-
 }

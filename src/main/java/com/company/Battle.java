@@ -2,31 +2,29 @@ package com.company;
 
 import org.reflections.Reflections;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.lang.reflect.*;
 
 
 public class Battle {
-    public static List<String> items = new ArrayList<>();
     public static ArrayList<Warrior> warriors1 = new ArrayList<>();
     public static ArrayList<Warrior> warriors2 = new ArrayList<>();
 
-
     public void addWarriors(ArrayList<Warrior> warriors, String item, String name) {
         Warrior warrior = null;
-        if (item.equals("Viking")) {
-            warrior = new Viking(name);
-        }
-        if (item.equals("Archer")) {
-            warrior = new Archer(name);
+        String[] squadsName = Battle.getClasses();
+        for (String s : squadsName) {
+            String className = "com.company." + s;
+            try {
+                if (item.equals(s)) {
+                    Class cl = Class.forName(className);
+                    warrior = (Warrior) cl.newInstance();
+                    warrior.setName(name);
+                }
+            } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+                throw new RuntimeException(e);
+            }
         }
         warriors.add(warrior);
-
     }
 
     public Squad createSquad(String name, ArrayList<Warrior> warriors) {
@@ -34,23 +32,21 @@ public class Battle {
     }
 
     public List<String> startBattle(Squad squad1, Squad squad2) {
-        return new Battle2().battle(squad1, squad2);
+        return new StartBattle().battle(squad1, squad2);
     }
 
-    public String [] getClasses() {
+    public static String[] getClasses() {
         Reflections reflections = new Reflections("com.company");
-        Set <Class<? extends Warrior>> classes =
-                reflections.getSubTypesOf(Warrior.class);
-        String [] cls = new String[classes.size()];
+        Set<Class<? extends WarriorState>> classes =
+                reflections.getSubTypesOf(WarriorState.class);
+        String[] cls = new String[classes.size()];
         String setString = "";
-        Iterator<Class<? extends Warrior>> iterator = classes.iterator();
+        Iterator<Class<? extends WarriorState>> iterator = classes.iterator();
         for (int i = 0; i < classes.size(); i++) {
             setString = iterator.next().toString();
-            String [] s = setString.split("\\.");
-            cls [i] = s[s.length -1 ];
-
+            String[] s = setString.split("\\.");
+            cls[i] = s[s.length - 1];
         }
         return cls;
-
     }
 }

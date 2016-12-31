@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-import static java.lang.Math.abs;
-
 
 /**
  * Created by tyuly on 21.11.2016.
@@ -25,6 +23,7 @@ public class DateHelper {
 
     /**
      * method for get formatted date
+     *
      * @return SimpleFormatDate startDate
      */
     public String getFormattedStartData() {
@@ -36,12 +35,13 @@ public class DateHelper {
      * method to skip time
      */
     public void skipTime() {
-        finalDate = startDate.plusMinutes(SKIP*k);
+        finalDate = startDate.plusMinutes(SKIP * k);
         k++;
     }
 
     /**
      * method to get final time
+     *
      * @return SimpleFormatDate finalDate
      */
     public String getFormattedFinalData() {
@@ -50,17 +50,17 @@ public class DateHelper {
 
     /**
      * return difference between start date and final date
+     *
      * @return String difference
      */
-     public String getFormattedDiff () {
-         Period period = Period.between(startDate.toLocalDate(),finalDate.toLocalDate());
-         long time[] = getTime(startDate,finalDate);
-         return period.getYears() + " years " + period.getMonths() + " months " + period.getDays() + " days " +
-                 time[0] + " hours " + time[1] + " minutes " + time[2] + " seconds";
-     }
+    public String getFormattedDiff() {
+        Period period = Period.between(startDate.toLocalDate(), finalDate.toLocalDate());
+        long time[] = getTime(startDate, finalDate);
+        return period.getYears() + " years " + period.getMonths() + " months " + period.getDays() + " days " +
+                time[0] + " hours " + time[1] + " minutes " + time[2] + " seconds";
+    }
 
     /**
-     *
      * @param date1 start date
      * @param date2 final date
      * @return long[] hours minutes seconds
