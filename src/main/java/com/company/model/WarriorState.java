@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.model.Warrior;
+
 /**
  * Created by tyuly on 31.12.2016.
  */

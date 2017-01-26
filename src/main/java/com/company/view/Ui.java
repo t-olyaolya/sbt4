@@ -1,6 +1,8 @@
 package com.company;
 
-import javafx.scene.control.ComboBox;
+import com.company.model.Battle;
+import com.company.model.Squad;
+import com.company.model.Warrior;
 
 import javax.swing.*;
 import java.awt.*;
