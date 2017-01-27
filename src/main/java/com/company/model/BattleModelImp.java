@@ -48,6 +48,7 @@ public class BattleModelImp implements Model {
 
     @Override
     public StringBuilder start(Squad squad1, Squad squad2) {
+        out = new StringBuilder();
         out.append("Start battle: " + dateHelper.getFormattedStartData() + "\n");
         int k = 1;
         try {
