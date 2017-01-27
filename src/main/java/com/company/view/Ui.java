@@ -1,6 +1,9 @@
-package com.company;
+package com.company.view;
 
-import com.company.model.Battle;
+import com.company.controller.BattleController;
+import com.company.controller.BattleControllerImp;
+import com.company.model.BattleModelImp;
+import com.company.model.Model;
 import com.company.model.Squad;
 import com.company.model.Warrior;
 
@@ -12,22 +15,27 @@ import java.util.List;
 /**
  * Created by tyuly on 11.12.2016.
  */
-public class Ui extends JFrame {
+public class Ui extends JFrame implements BattleObserver{
     private final int TEXT_SIZE = 25;
-    private static String[] items = {"Viking", "Archer"};
-    private static Battle battle = new Battle();
-    private String squad1Name = "squad1";
-    private String squad2Name = "squad2";
-    private String item = "";
-    private static String nameWarrior = "";
+    private BattleController battleController;
     private Squad squad1;
     private Squad squad2;
-    private List<String> list = new ArrayList<>();
+    private JTextArea textArea;
+    private String nameSq1, nameSq2 = "";
 
-    public Ui() throws HeadlessException {
+
+
+    public Ui(Model model, BattleController battleController) throws HeadlessException {
+        this.battleController = battleController;
+        model.registerObserver(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
+        setVisible(true);
         create();
+    }
+
+    public void update(String upd) {
+        textArea.setText(upd.toString());
     }
 
     public void create() {
@@ -36,14 +44,14 @@ public class Ui extends JFrame {
         JTextField nameSquad1 = new TextFieldName();
         JTextField nameSquad2 = new TextFieldName();
         JButton createButton1 = new CreateSquadButton();
-        JTextArea textArea = new JTextArea(50, 50);
+        textArea = new JTextArea(50, 50);
         createButton1.addActionListener(e -> {
-            squad1Name = Ui.createSquad(squad1Name, nameSquad1, textArea);
+            nameSq1 = BattleController.createNameSquad(this,"Squad1", nameSquad1.getText());
 
         });
         JButton createButton2 = new CreateSquadButton();
         createButton2.addActionListener(e -> {
-            squad2Name = Ui.createSquad(squad2Name, nameSquad2, textArea);
+            nameSq2 = BattleController.createNameSquad(this,"Squad2", nameSquad2.getText());
         });
         JTextField nameWarrior1 = new TextFieldName();
         JTextField nameWarrior2 = new TextFieldName();
@@ -52,20 +60,17 @@ public class Ui extends JFrame {
         JButton start = new JButton("START");
         JButton add1 = new AddButton();
         add1.addActionListener(e -> {
-            item = (String) comboBox1.getSelectedItem();
-            Ui.addWarrior(item, Battle.warriors1, nameWarrior1, textArea);
+            Ui.addWarrior(battleController, nameWarrior1, comboBox1, BattleModelImp.warriors1);
         });
         JButton add2 = new AddButton();
         add2.addActionListener(e -> {
-            item = (String) comboBox2.getSelectedItem();
-            Ui.addWarrior(item, Battle.warriors2, nameWarrior2, textArea);
+            Ui.addWarrior(battleController, nameWarrior2, comboBox2, BattleModelImp.warriors2);
         });
         start.addActionListener(e -> {
-            textArea.setText("");
-            squad1 = battle.createSquad(squad1Name, Battle.warriors1);
-            squad2 = battle.createSquad(squad2Name, Battle.warriors2);
-            list = battle.startBattle(squad1, squad2);
-            list.forEach((String s) -> textArea.append("\n" + s));
+            //update("");
+            squad1 = battleController.createSquad(nameSq1, BattleModelImp.warriors1);
+            squad2 = battleController.createSquad(nameSq2, BattleModelImp.warriors2);
+            battleController.start(squad1, squad2);
             nameSquad1.setText("");
             nameSquad2.setText("");
         });
@@ -109,6 +114,7 @@ public class Ui extends JFrame {
         pack();
     }
 
+
     private class TextFieldName extends JTextField {
         public TextFieldName() {
             super(TEXT_SIZE);
@@ -135,23 +141,12 @@ public class Ui extends JFrame {
 
     private class ComboSquadName extends JComboBox {
         public ComboSquadName() {
-            super(battle.getClasses());
+            super(battleController.getTypesWarriors());
         }
     }
 
-    public static void addWarrior(String item, ArrayList<Warrior> warriors, JTextField nameWar, JTextArea textArea) {
-        nameWarrior = nameWar.getText();
-        battle.addWarriors(warriors, item, nameWarrior);
-        textArea.append("Warrior " + nameWarrior + " added" + "\n");
-        nameWar.setText("");
-    }
-
-    public static String createSquad(String name, JTextField nameSquad, JTextArea textArea) {
-        String sqName = nameSquad.getText();
-        if(sqName.equals(null)) {
-            sqName = name;
-        }
-        textArea.append(sqName + " created" + "\n");
-        return sqName;
+    public static void addWarrior(BattleController battleController, JTextField nameWarrior, JComboBox comboBox, ArrayList<Warrior> warriors) {
+        battleController.addWarrior(nameWarrior.getText(),(String) comboBox.getSelectedItem(), warriors);
+        nameWarrior.setText("");
     }
 }

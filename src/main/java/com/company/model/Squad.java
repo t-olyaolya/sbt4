@@ -1,11 +1,8 @@
-package com.company;
+package com.company.model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
 
 /**
  * Created by tyuly on 21.11.2016.
@@ -15,7 +12,7 @@ public class Squad implements Cloneable {
     List<Warrior> warriors = new ArrayList<>();
     private String name;
 
-    Squad(String name, List<Warrior> warriors) {
+    public Squad(String name, List<Warrior> warriors) {
         this.warriors = warriors;
         this.name = name;
         warriors.forEach((Warrior warrior) -> warrior.setSquatName(name));

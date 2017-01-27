@@ -1,6 +1,4 @@
-package com.company;
-
-import java.util.function.BinaryOperator;
+package com.company.model;
 
 /**
  * Created by tyuly on 21.11.2016.

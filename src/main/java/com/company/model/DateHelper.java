@@ -1,4 +1,4 @@
-package com.company;
+package com.company.model;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ public class DateHelper {
     private int k = 1;
     static final int SKIP = 45;
 
-    DateHelper() {
+    public DateHelper() {
         dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyy HH:mm");
     }
 

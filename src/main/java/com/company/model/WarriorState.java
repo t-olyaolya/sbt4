@@ -1,4 +1,4 @@
-package com.company;
+package com.company.model;
 
 import com.company.model.Warrior;
 
