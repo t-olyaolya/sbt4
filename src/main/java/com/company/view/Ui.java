@@ -23,8 +23,6 @@ public class Ui extends JFrame implements BattleObserver{
     private JTextArea textArea;
     private String nameSq1, nameSq2 = "";
 
-
-
     public Ui(Model model, BattleController battleController) throws HeadlessException {
         this.battleController = battleController;
         model.registerObserver(this);
@@ -46,12 +44,12 @@ public class Ui extends JFrame implements BattleObserver{
         JButton createButton1 = new CreateSquadButton();
         textArea = new JTextArea(50, 50);
         createButton1.addActionListener(e -> {
-            nameSq1 = BattleController.createNameSquad(this,"Squad1", nameSquad1.getText());
+            nameSq1 = battleController.createNameSquad("Squad1", nameSquad1.getText());
 
         });
         JButton createButton2 = new CreateSquadButton();
         createButton2.addActionListener(e -> {
-            nameSq2 = BattleController.createNameSquad(this,"Squad2", nameSquad2.getText());
+            nameSq2 = battleController.createNameSquad("Squad2", nameSquad2.getText());
         });
         JTextField nameWarrior1 = new TextFieldName();
         JTextField nameWarrior2 = new TextFieldName();
@@ -67,7 +65,6 @@ public class Ui extends JFrame implements BattleObserver{
             Ui.addWarrior(battleController, nameWarrior2, comboBox2, BattleModelImp.warriors2);
         });
         start.addActionListener(e -> {
-            //update("");
             squad1 = battleController.createSquad(nameSq1, BattleModelImp.warriors1);
             squad2 = battleController.createSquad(nameSq2, BattleModelImp.warriors2);
             battleController.start(squad1, squad2);
@@ -113,7 +110,6 @@ public class Ui extends JFrame implements BattleObserver{
         add(panel2, BorderLayout.EAST);
         pack();
     }
-
 
     private class TextFieldName extends JTextField {
         public TextFieldName() {

@@ -12,9 +12,9 @@ public interface Model {
 
     String[] getTypeWarriors();
 
-    StringBuilder start(Squad squad1, Squad squad2);
+    void start(Squad squad1, Squad squad2);
 
-    public Squad createSquad(String name, ArrayList<Warrior> warriors);
+    Squad createSquad(String name, ArrayList<Warrior> warriors);
 
     void addWarriors(ArrayList<Warrior> warriors, String item, String name);
 
@@ -23,4 +23,6 @@ public interface Model {
     void removeObserver(BattleObserver o);
 
     void notifyObservers();
+
+    void createSquadName(String name);
 }

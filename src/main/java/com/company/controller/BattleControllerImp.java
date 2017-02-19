@@ -15,12 +15,10 @@ import java.util.List;
 public class BattleControllerImp implements BattleController {
 
     private Model model;
-    private Ui battleView;
 
     public BattleControllerImp(Model model) {
         this.model = model;
-        battleView = new Ui(model, this);
-
+        new Ui(model, this);
     }
 
     @Override
@@ -30,10 +28,7 @@ public class BattleControllerImp implements BattleController {
 
     @Override
     public void addWarrior(String nameWarrior,String item, ArrayList<Warrior> warriors) {
-        String upd = "";
         model.addWarriors(warriors, item, nameWarrior);
-        upd = "Warrior " + nameWarrior + " added" + "\n";
-        battleView.update(upd);
     }
 
     @Override
@@ -42,9 +37,16 @@ public class BattleControllerImp implements BattleController {
     }
 
     @Override
+    public String createNameSquad(String name, String sqName) {
+        if(sqName.equals("")) {
+            sqName = name;
+        }
+        model.createSquadName(sqName);
+        return sqName;
+    }
+
+    @Override
     public void start(Squad squad1, Squad squad2) {
-        battleView.update("");
-        StringBuilder out = model.start(squad1,squad2);
-        battleView.update(out.toString());
+        model.start(squad1,squad2);
     }
 }

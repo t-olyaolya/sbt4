@@ -15,15 +15,7 @@ public interface BattleController {
 
     void addWarrior(String nameWarrior,String item, ArrayList<Warrior> warriors);
 
-    static String createNameSquad(Ui battleView, String name, String sqName) {
-        String upd = "";
-        if(sqName.equals(null)) {
-            sqName = name;
-        }
-        upd =  sqName + " created" + "\n";
-        battleView.update(upd);
-        return sqName;
-    }
+    String createNameSquad(String name, String sqName);
 
     Squad createSquad(String sqName, ArrayList<Warrior> warriors);
 

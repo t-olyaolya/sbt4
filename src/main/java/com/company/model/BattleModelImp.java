@@ -16,7 +16,6 @@ public class BattleModelImp implements Model {
     @Override
     public String[] getTypeWarriors() {
         return warriorFab.getTypeWarriors();
-
     }
 
     @Override
@@ -24,11 +23,19 @@ public class BattleModelImp implements Model {
         Warrior warrior = warriorFab.newWarrior(item);
         warrior.setName(name);
         warriors.add(warrior);
+        out.append("Warrior " + name + " added" + "\n");
+        notifyObservers();
     }
 
     @Override
     public Squad createSquad(String name, ArrayList<Warrior> warriors) {
         return new Squad(name, warriors);
+    }
+
+    @Override
+    public void createSquadName(String name) {
+        out.append(name + " created" + "\n");
+        notifyObservers();
     }
 
     @Override
@@ -47,8 +54,7 @@ public class BattleModelImp implements Model {
     }
 
     @Override
-    public StringBuilder start(Squad squad1, Squad squad2) {
-        out = new StringBuilder();
+    public void start(Squad squad1, Squad squad2) {
         out.append("Start battle: " + dateHelper.getFormattedStartData() + "\n");
         int k = 1;
         try {
@@ -58,39 +64,43 @@ public class BattleModelImp implements Model {
                 Warrior war2 = squad2.getRandomWarrior();
                 out.append("War2 " + war2.toString() + "\n");
                 if (k % 2 != 0) {
-                    BattleModelImp.died(war2, war1);
+                    died(war2, war1);
                 } else {
-                    BattleModelImp.died(war1, war2);
+                    died(war1, war2);
                 }
                 k++;
                 dateHelper.skipTime();
-                if (!BattleModelImp.checkAlive(squad1, squad2))
+                if (!checkAlive(squad1, squad2))
                     break;
-                if (!BattleModelImp.checkAlive(squad2, squad1))
+                if (!checkAlive(squad2, squad1))
                     break;
             }
             out.append("\n" + "Duration: " + dateHelper.getFormattedDiff() + "\n" );
         } catch (NullPointerException | IllegalArgumentException e) {
             out.append("Заполните отряды");
         }
-        return out;
+        finally {
+            notifyObservers();
+            out = new StringBuilder();
+        }
     }
 
-    public static boolean checkAlive(Squad squad1, Squad squad2) {
+    public boolean checkAlive(Squad squad1, Squad squad2) {
         if (!squad1.hasAliveWarriors()) {
             out.append("\n" + squad2.toString() + " won" + "\n");
             out.append("Final: " + dateHelper.getFormattedFinalData() + "\n");
+            notifyObservers();
             return false;
         }
         return true;
     }
 
-    public static void died(Warrior war1, Warrior war2) {
+    public  void died(Warrior war1, Warrior war2) {
         war1.takeDamage(war2.attack());
         out.append(war2.getName() + " attacks " + war1.getName() + "\n");
         if (!war1.isAlive()) {
             out.append(war1.toString() + " died" + "\n");
         }
+        notifyObservers();
     }
-
 }
